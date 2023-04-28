@@ -47,10 +47,10 @@ def enumeration_convex_hull(points):
 
 if __name__ == '__main__':
 
-    test_settings = [100]
+    test_settings = [50]
 
     for test_num in test_settings:
-        dots = utils.generate_dots(test_num)
+        dots = utils.generate_dots(test_num, seed=88)
         utils.draw_graph(dots)
 
         dots = enumeration_convex_hull(dots)

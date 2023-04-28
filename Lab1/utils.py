@@ -32,10 +32,15 @@ def draw_graph(points):
     plt.show()
 
 
+def get_most_left_bottom_point(points):
+    left_bottom = sorted(points, key=lambda p: (p[0], p[1]))[0]
+    return left_bottom
+
+
 def draw_performance_graph():
     pass
 
 
-if __name__ == '__main__':
-    dot_list = generate_dots(10000)
-    print(dot_list)
+# if __name__ == '__main__':
+#     dot_list = generate_dots(10000)
+#     print(dot_list)
