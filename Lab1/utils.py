@@ -1,3 +1,4 @@
+import math
 import random
 
 from matplotlib import pyplot as plt
@@ -19,6 +20,28 @@ def generate_dots(num: int, seed=42):
     return list(dots)
 
 
+def draw(list_points, list_borders):
+    """
+    画图
+    :param list_points: 所有点集
+    :param list_borders: 所有边界点集
+    :return: picture
+    """
+    list_all_x = []
+    list_all_y = []
+    for item in list_points:
+        a, b = item
+        list_all_x.append(a)
+        list_all_y.append(b)
+    list_borders.append(list_borders[0])
+    for i in range(len(list_borders) - 1):
+        one_, oneI = list_borders[i]
+        two_, twoI = list_borders[i + 1]
+        plt.plot([one_, two_], [oneI, twoI])
+    plt.scatter(list_all_x, list_all_y)
+    plt.show()
+
+
 def draw_graph(points):
     # 将所有 x, y 坐标分别存储到两个列表中
     xs, ys = zip(*points)
@@ -30,6 +53,10 @@ def draw_graph(points):
     plt.ylabel("Y")
     # 显示图像
     plt.show()
+
+
+def polar_angle_distance_sort(points, polar_point):
+    return sorted(points, key=lambda p: (math.atan2(p[1] - polar_point[1], p[0] - polar_point[0]), (p[0] - polar_point[0]) ** 2 + (p[1] - polar_point[1]) ** 2))
 
 
 def get_most_left_bottom_point(points):
@@ -44,7 +71,6 @@ def rearrange_points(points):
 
 def draw_performance_graph():
     pass
-
 
 # if __name__ == '__main__':
 #     dot_list = generate_dots(10000)

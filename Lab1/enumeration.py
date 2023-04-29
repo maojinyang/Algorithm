@@ -57,7 +57,7 @@ if __name__ == '__main__':
 
     for test_num in test_settings:
         dots = utils.generate_dots(test_num, seed=88)
-        utils.draw_graph(dots)
-
-        dots = enumeration_convex_hull(dots)
-        utils.draw_graph(dots)
+        convex_dots = enumeration_convex_hull(dots)
+        convex_dots = utils.rearrange_points(convex_dots)
+        convex_dots = utils.polar_angle_distance_sort(convex_dots, convex_dots[0])
+        utils.draw(dots, convex_dots)
