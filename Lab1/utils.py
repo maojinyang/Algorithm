@@ -37,6 +37,11 @@ def get_most_left_bottom_point(points):
     return left_bottom
 
 
+def rearrange_points(points):
+    sorted(points, key=lambda p: (p[0], p[1]))
+    return points
+
+
 def draw_performance_graph():
     pass
 

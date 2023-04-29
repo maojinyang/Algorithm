@@ -1,3 +1,4 @@
+import datetime
 import math
 import utils
 
@@ -7,6 +8,8 @@ def polar_angle_distance_sort(points, polar_point):
 
 
 def Graham_Scan_Convex_Hull(points):
+    start_time = datetime.datetime.now()
+
     left_bottom = utils.get_most_left_bottom_point(points)
     order_points = polar_angle_distance_sort(points, left_bottom)
     order_points.remove(left_bottom)
@@ -24,6 +27,8 @@ def Graham_Scan_Convex_Hull(points):
                 else:
                     stack.append(order_points[i])
                     break
+    end_time = datetime.datetime.now()
+    print("计算时间---", (end_time - start_time))
     return stack
 
 

@@ -1,3 +1,5 @@
+import datetime
+
 from tqdm import tqdm
 
 import utils
@@ -23,6 +25,8 @@ def is_point_inside_triangle(point, A, B, C):
 
 
 def enumeration_convex_hull(points):
+    start_time = datetime.datetime.now()
+
     is_convex = [True for _ in range(len(points))]
     for i in tqdm(range(len(points))):
         if not is_convex[i]:
@@ -42,6 +46,8 @@ def enumeration_convex_hull(points):
     for point, convex in zip(points, is_convex):
         if convex:
             result.append(point)
+    end_time = datetime.datetime.now()
+    print("计算时间---", (end_time - start_time))
     return result
 
 
