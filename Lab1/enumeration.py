@@ -53,11 +53,10 @@ def enumeration_convex_hull(points):
 
 if __name__ == '__main__':
 
-    test_settings = [50]
+    test_settings = [200, 100, 50]
 
     for test_num in test_settings:
         dots = utils.generate_dots(test_num, seed=88)
         convex_dots = enumeration_convex_hull(dots)
-        convex_dots = utils.rearrange_points(convex_dots)
         convex_dots = utils.polar_angle_distance_sort(convex_dots, convex_dots[0])
         utils.draw(dots, convex_dots)

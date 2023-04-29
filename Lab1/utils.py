@@ -65,8 +65,15 @@ def get_most_left_bottom_point(points):
 
 
 def rearrange_points(points):
-    sorted(points, key=lambda p: (p[0], p[1]))
+    points = sorted(points, key=lambda p: (p[0], p[1]))
     return points
+
+
+def calc_triangle_area(A, B, C):
+    x1, y1 = A
+    x2, y2 = B
+    x3, y3 = C
+    return x1 * y2 + x3 * y1 + x2 * y3 - x3 * y2 - x2 * y1 - x1 * y3
 
 
 def draw_performance_graph():

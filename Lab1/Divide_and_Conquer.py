@@ -3,72 +3,54 @@ import datetime
 import utils
 import sys
 
-sys.setrecursionlimit(100000)  # 例如这里设置为十万
+sys.setrecursionlimit(100000)
 
 
-def dealleft(first, final, lis, temp):
-    # temp用来标记位于凸包上的点
-    max = 0
-    index = -1
-    # 处理first到final的上方，得到使first，final，i 三点组成的三角形面积最大的点i
-    if first < final:
-        for i in range(first, final):
-            # 获得first，final，i 的坐标
-            firstcoordinate = lis[first]
-            finalcoordinate = lis[final]
-            icoordinate = lis[i]
-            firstx = firstcoordinate[0]
-            firsty = firstcoordinate[1]
-            finalx = finalcoordinate[0]
-            finaly = finalcoordinate[1]
-            ix = icoordinate[0]
-            iy = icoordinate[1]
-            # 计算first，final，i 三点组成的三角形面积
-            triangle_area = firstx * finaly + ix * firsty + finalx * iy - ix * finaly - finalx * firsty - firstx * iy
-            if triangle_area > max:
-                max = triangle_area
-                index = i
-    # 处理first到final的下方，得到使first，final，i 三点组成的三角形面积最大的点i
-    else:
-        for i in range(final, first):
-            firstcoordinate = lis[first]
-            finalcoordinate = lis[final]
-            icoordinate = lis[i]
-            firstx = firstcoordinate[0]
-            firsty = firstcoordinate[1]
-            finalx = finalcoordinate[0]
-            finaly = finalcoordinate[1]
-            ix = icoordinate[0]
-            iy = icoordinate[1]
-            triangle_area = firstx * finaly + ix * firsty + finalx * iy - ix * finaly - finalx * firsty - firstx * iy
-            if triangle_area > max:
-                max = triangle_area
-                index = i
+def get_upper_point(left, right, points, convex_points):
+    max_area = 0
+    max_point = None
+    for point in points:
+        if point == left or point == right:
+            continue
+        cur_area = utils.calc_triangle_area(left, right, point)
+        if cur_area > max_area:
+            max_point = point
+            max_area = cur_area
+    if max_area != 0:
+        convex_points.append(max_point)
+        get_upper_point(left, max_point, points, convex_points)
+        get_upper_point(max_point, right, points, convex_points)
 
-    if index != -1:
-        temp[index] = 1
-        dealleft(first, index, lis, temp)
-        dealleft(index, final, lis, temp)
+
+def get_bottom_point(left, right, points, convex_points):
+    max_area = 0
+    max_point = None
+    for point in points:
+        if point == left or point == right:
+            continue
+        cur_area = utils.calc_triangle_area(left, right, point)
+        if cur_area < max_area:
+            max_point = point
+            max_area = cur_area
+    if max_area != 0:
+        convex_points.append(max_point)
+        get_bottom_point(left, max_point, points, convex_points)
+        get_bottom_point(max_point, right, points, convex_points)
 
 
 def Divide_and_Conquer(points):
     start_time = datetime.datetime.now()
-    temp = {}
-    result = []
-    n = len(points)
-    for i in range(n):
-        temp[i] = 0
     order_points = utils.rearrange_points(points)
-    temp[0] = 1
-    temp[n - 1] = 1
-    dealleft(0, n - 1, order_points, temp)
-    dealleft(n - 1, 0, order_points, temp)
-    for i in temp:
-        if temp[i]:
-            result.append(order_points[i])
+    left = order_points[0]
+    right = order_points[-1]
+    convex_points = []
+    get_upper_point(left, right, order_points, convex_points)
+    get_bottom_point(left, right, order_points, convex_points)
+    convex_points.append(left)
+    convex_points.append(right)
     end_time = datetime.datetime.now()
     print("计算时间---", (end_time - start_time))
-    return result
+    return convex_points
 
 
 def main():
@@ -76,10 +58,9 @@ def main():
 
     for test_num in test_settings:
         points = utils.generate_dots(test_num, seed=88)
-        utils.draw_graph(points)
-
-        points = Divide_and_Conquer(points)
-        utils.draw_graph(points)
+        convex_points = Divide_and_Conquer(points)
+        convex_points = utils.polar_angle_distance_sort(convex_points, convex_points[0])
+        utils.draw(points, convex_points)
 
 
 if __name__ == '__main__':
