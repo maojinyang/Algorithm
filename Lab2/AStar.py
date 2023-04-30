@@ -105,36 +105,27 @@ close = []
 hq.heapify(open)
 hq.heappush(open, Node(nowx=start[0], nowy=start[1], dist=GetDist(start, end)))
 PATH = None
-# 搜索路径
+
 while len(open) > 0:
     item = hq.heappop(open)
     nowx = item.nowx
     nowy = item.nowy
 
-    # 避免超出地图界限
     if nowx < 0 or nowx >= map_x or nowy < 0 or nowy >= map_y:
         continue
 
-    # 避开障碍
     if map[nowx][nowy] == obsindex:
         continue
 
-    # # 标记地图
-    # map[nowx][nowy] = 1
-
-    # 搜索到终点
     if nowx == end[0] and nowy == end[1]:
         PATH = item.path
         break
 
-    # 取出的节点已经在close列表里面则不在使用
     if Contain(close, [nowx, nowy]):
         continue
 
-    # 当前节点加入close列表
     close.append(item)
 
-    # 生成当前节点的下一步策略
     newcost = item.cost + 1
     oblique_cost = item.cost + np.sqrt(2)
     if map[nowx][nowy] == 4:
