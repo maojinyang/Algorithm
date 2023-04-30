@@ -137,6 +137,12 @@ while len(open) > 0:
     # 生成当前节点的下一步策略
     newcost = item.cost + 1
     oblique_cost = item.cost + np.sqrt(2)
+    if map[nowx][nowy] == 4:
+        newcost += 4
+        oblique_cost += 4
+    elif map[nowx][nowy] == 8:
+        newcost += 2
+        oblique_cost += 2
     hq.heappush(open, Node(nowx=nowx + 1, nowy=nowy + 1, dist=GetDist([nowx + 1, nowy + 1], end), path=item.path + [[nowx + 1, nowy + 1]], cost=oblique_cost))
     hq.heappush(open, Node(nowx=nowx - 1, nowy=nowy + 1, dist=GetDist([nowx - 1, nowy + 1], end), path=item.path + [[nowx - 1, nowy + 1]], cost=oblique_cost))
     hq.heappush(open, Node(nowx=nowx - 1, nowy=nowy - 1, dist=GetDist([nowx - 1, nowy - 1], end), path=item.path + [[nowx - 1, nowy - 1]], cost=oblique_cost))
