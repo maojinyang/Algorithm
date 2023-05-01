@@ -1,4 +1,7 @@
 import time
+
+from matplotlib import pyplot as plt
+
 import utils
 
 
@@ -24,16 +27,21 @@ def Graham_Scan_Convex_Hull(points):
                     break
     end = time.time()
     print(end - start)
-    return stack
+    return stack, end - start
 
 
 def main():
-    test_settings = [5000]
+    # test_settings = [50, 100, 200]
+    test_settings = [100, 500, 1000, 2000, 3000]
 
+    run_times = []
     for test_num in test_settings:
         points = utils.generate_dots(test_num, seed=88)
-        convex_points = Graham_Scan_Convex_Hull(points)
-        utils.draw(points, convex_points)
+        convex_points, runtime = Graham_Scan_Convex_Hull(points)
+        # utils.draw(points, convex_points)
+        run_times.append(runtime)
+    plt.plot(test_settings, run_times)
+    plt.show()
 
 
 if __name__ == '__main__':

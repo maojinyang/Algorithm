@@ -1,6 +1,7 @@
 import datetime
 import time
 
+from matplotlib import pyplot as plt
 from tqdm import tqdm
 
 import utils
@@ -27,7 +28,6 @@ def is_point_inside_triangle(point, A, B, C):
 
 def enumeration_convex_hull(points):
     start = time.time()
-
     is_convex = [True for _ in range(len(points))]
     for i in tqdm(range(len(points))):
         if not is_convex[i]:
@@ -54,10 +54,14 @@ def enumeration_convex_hull(points):
 
 if __name__ == '__main__':
 
-    test_settings = [200, 100, 50]
+    test_settings = [100, 500, 1000, 2000, 3000]
 
-    for test_num in test_settings:
-        dots = utils.generate_dots(test_num, seed=88)
-        convex_dots = enumeration_convex_hull(dots)
-        convex_dots = utils.polar_angle_distance_sort(convex_dots, convex_dots[0])
-        utils.draw(dots, convex_dots)
+    # for test_num in test_settings:
+    #     dots = utils.generate_dots(test_num, seed=88)
+    #     convex_dots = enumeration_convex_hull(dots)
+    #     convex_dots = utils.polar_angle_distance_sort(convex_dots, convex_dots[0])
+    #     utils.draw(dots, convex_dots)
+
+    time_cost = [0.017, 1.235, 5.506, 15.024, 24.432]
+    plt.plot(test_settings, time_cost)
+    plt.show()

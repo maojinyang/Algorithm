@@ -1,6 +1,8 @@
 import datetime
 import time
 
+from matplotlib import pyplot as plt
+
 import utils
 import sys
 
@@ -51,17 +53,21 @@ def Divide_and_Conquer(points):
     convex_points.append(right)
     end = time.time()
     print(end - start)
-    return convex_points
+    return convex_points, end - start
 
 
 def main():
-    test_settings = [5000]
+    test_settings = [100, 500, 1000, 2000, 3000]
 
+    run_times = []
     for test_num in test_settings:
         points = utils.generate_dots(test_num, seed=88)
-        convex_points = Divide_and_Conquer(points)
-        convex_points = utils.polar_angle_distance_sort(convex_points, convex_points[0])
-        utils.draw(points, convex_points)
+        convex_points, runtime = Divide_and_Conquer(points)
+        # convex_points = utils.polar_angle_distance_sort(convex_points, convex_points[0])
+        # utils.draw(points, convex_points)
+        run_times.append(runtime)
+    plt.plot(test_settings, run_times)
+    plt.show()
 
 
 if __name__ == '__main__':
