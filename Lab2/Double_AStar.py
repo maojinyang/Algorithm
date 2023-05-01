@@ -2,8 +2,8 @@ import numpy as np
 import heapq as hq
 from utils import *
 
-start, end, map = Init_Map_1()
-# start, end, map = Init_Map_2()
+# start, end, map = Init_Map_1()
+start, end, map = Init_Map_2()
 
 map_x = len(map)
 map_y = len(map[0])

@@ -1,9 +1,9 @@
-import datetime
+import time
 import utils
 
 
 def Graham_Scan_Convex_Hull(points):
-    start_time = datetime.datetime.now()
+    start = time.time()
 
     left_bottom = utils.get_most_left_bottom_point(points)
     order_points = utils.polar_angle_distance_sort(points, left_bottom)
@@ -22,13 +22,13 @@ def Graham_Scan_Convex_Hull(points):
                 else:
                     stack.append(order_points[i])
                     break
-    end_time = datetime.datetime.now()
-    print("计算时间---", (end_time - start_time))
+    end = time.time()
+    print(end - start)
     return stack
 
 
 def main():
-    test_settings = [50]
+    test_settings = [5000]
 
     for test_num in test_settings:
         points = utils.generate_dots(test_num, seed=88)

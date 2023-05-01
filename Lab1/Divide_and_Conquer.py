@@ -1,4 +1,5 @@
 import datetime
+import time
 
 import utils
 import sys
@@ -39,7 +40,7 @@ def get_bottom_point(left, right, points, convex_points):
 
 
 def Divide_and_Conquer(points):
-    start_time = datetime.datetime.now()
+    start = time.time()
     order_points = utils.rearrange_points(points)
     left = order_points[0]
     right = order_points[-1]
@@ -48,13 +49,13 @@ def Divide_and_Conquer(points):
     get_bottom_point(left, right, order_points, convex_points)
     convex_points.append(left)
     convex_points.append(right)
-    end_time = datetime.datetime.now()
-    print("计算时间---", (end_time - start_time))
+    end = time.time()
+    print(end - start)
     return convex_points
 
 
 def main():
-    test_settings = [50]
+    test_settings = [5000]
 
     for test_num in test_settings:
         points = utils.generate_dots(test_num, seed=88)
