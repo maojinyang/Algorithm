@@ -1,7 +1,7 @@
 import random
 
 random.seed(42)
-sub_set_num = 2
+sub_set_num = 20
 
 
 def Init_Set():
