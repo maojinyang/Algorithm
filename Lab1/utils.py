@@ -77,8 +77,22 @@ def calc_triangle_area(A, B, C):
 
 
 def draw_performance_graph():
-    pass
+    x_axis_data = [100, 500, 1000, 2000, 3000]
+    # y_axis_data1 = [0.017, 1.235, 5.506, 15.024, 24.432]
+    y_axis_data2 = [0.0, 0.001, 0.002, 0.004, 0.006]
+    y_axis_data3 = [0.0, 0.005, 0.011, 0.022, 0.044]
 
-# if __name__ == '__main__':
-#     dot_list = generate_dots(10000)
-#     print(dot_list)
+    # 画图
+    # plt.plot(x_axis_data, y_axis_data1, 'b*--', alpha=0.5, linewidth=1, label='enumeration')  # '
+    plt.plot(x_axis_data, y_axis_data2, 'rs--', alpha=0.5, linewidth=1, label='graham scan')
+    plt.plot(x_axis_data, y_axis_data3, 'go--', alpha=0.5, linewidth=1, label='divide and conquer')
+
+    plt.legend()
+    plt.xlabel('number')
+    plt.ylabel('time')
+
+    plt.show()
+
+
+if __name__ == '__main__':
+    draw_performance_graph()

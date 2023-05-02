@@ -49,19 +49,20 @@ def enumeration_convex_hull(points):
             result.append(point)
     end = time.time()
     print(end - start)
-    return result
+    return result, end-start
 
 
 if __name__ == '__main__':
 
     test_settings = [100, 500, 1000, 2000, 3000]
 
-    # for test_num in test_settings:
-    #     dots = utils.generate_dots(test_num, seed=88)
-    #     convex_dots = enumeration_convex_hull(dots)
-    #     convex_dots = utils.polar_angle_distance_sort(convex_dots, convex_dots[0])
-    #     utils.draw(dots, convex_dots)
+    time_cost = []
+    for test_num in test_settings:
+        dots = utils.generate_dots(test_num, seed=88)
+        convex_dots, runtime = enumeration_convex_hull(dots)
+        time_cost.append(runtime)
+        # convex_dots = utils.polar_angle_distance_sort(convex_dots, convex_dots[0])
+        # utils.draw(dots, convex_dots)
 
-    time_cost = [0.017, 1.235, 5.506, 15.024, 24.432]
     plt.plot(test_settings, time_cost)
     plt.show()
