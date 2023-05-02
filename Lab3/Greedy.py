@@ -1,5 +1,7 @@
 import time
 
+from matplotlib import pyplot as plt
+
 from utils import *
 
 
@@ -23,10 +25,18 @@ def Run_Greedy(All_Set, Sub_Set):
     t = end - start
     print("运行时间", t)
 
+    return t
+
 
 def main():
-    All_Set, Sub_Set = Build_Input(1000)
-    Run_Greedy(All_Set, Sub_Set)
+    time_cost = []
+    tests = [100, 1000, 5000]
+    for i in tests:
+        All_Set, Sub_Set = Build_Input(i)
+        t = Run_Greedy(All_Set, Sub_Set)
+        time_cost.append(t)
+    plt.plot(tests, time_cost)
+    plt.show()
 
 
 if __name__ == '__main__':
