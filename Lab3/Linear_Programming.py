@@ -11,10 +11,8 @@ def Run_LP(All_Set, Sub_Set):
 
     n = len(All_Set)
 
-    # 求解线性规划问题
-    # 目标函数：min CX  -----此问题中C取值为1
+    # 目标函数：min CX  C取值为1
     # 约束条件：AX>=B
-    # 定义C---目标函数的系数
     freq = [0] * n
     C = [1] * n
     A = [[0 for _ in range(n)] for _ in range(n)]
@@ -33,7 +31,6 @@ def Run_LP(All_Set, Sub_Set):
     m = pulp.LpProblem(sense=pulp.LpMinimize)
     m += pulp.lpDot(C, X)
 
-    # 设置约束条件求解
     for i in range(n):
         m += (pulp.lpDot(A[i], X) >= B[i])
     m.solve()
