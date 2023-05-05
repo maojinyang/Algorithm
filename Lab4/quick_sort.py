@@ -62,13 +62,14 @@ def quicksort_tail(A, p, r):
 if __name__ == '__main__':
     DATA, ratios = Build_Data(42, 2)
 
-    my_time_cost = [3.783, 439.511]
-    # for data in DATA:
-    #     start_time = time.time()
-    #     quicksort_tail(data, 0, len(data) - 1)
-    #     end_time = time.time()
-    #     print(end_time - start_time)
-    #     my_time_cost.append(end_time - start_time)
+    # my_time_cost = [3.783, 439.511]
+    my_time_cost = []
+    for data in DATA:
+        start_time = time.time()
+        quicksort_tail(data, 0, len(data) - 1)
+        end_time = time.time()
+        print(end_time - start_time)
+        my_time_cost.append(end_time - start_time)
 
     python_time_cost = []
     for data in DATA:
